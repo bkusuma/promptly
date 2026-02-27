@@ -47,7 +47,8 @@ layout: default
       <img
         src="{{ page.image | relative_url }}"
         alt="{{ page.image_alt | default: page.title | escape }}"
-        loading="lazy"
+        loading="eager"
+        fetchpriority="high"
         decoding="async"
         width="1200"
         height="675"

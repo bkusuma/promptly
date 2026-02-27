@@ -15,16 +15,26 @@ layout: default
 
 {%- comment -%}
   Group prompts by year at build time using Liquid.
-  Sorting happens on the pre-sorted collection, grouped via a custom loop.
-  We avoid nested for-loops on large data by building a year-keyed array once.
+
+  IMPORTANT: `map: "year"` is invalid on Ruby Time objects in Liquid 4 — calling
+  time["year"] returns nil, so the timeline would render empty. Instead we do a
+  single O(n) pass to build a pipe-delimited string of unique years, then split it.
+  The inner loop (O(Y×P)) is unavoidable with Jekyll 3.9.x (no group_by_exp).
 {%- endcomment -%}
 
 {%- assign sorted_prompts = site.prompts | sort: "date" | reverse -%}
-{%- assign years = sorted_prompts | map: "date" | map: "year" | uniq -%}
+
+{%- assign year_pipe = "" -%}
+{%- for prompt in sorted_prompts -%}
+  {%- assign _y = prompt.date | date: "%Y" -%}
+  {%- unless year_pipe contains _y -%}
+    {%- assign year_pipe = year_pipe | append: _y | append: "|" -%}
+  {%- endunless -%}
+{%- endfor -%}
+{%- assign years = year_pipe | split: "|" -%}
 
 <div class="timeline" aria-label="Prompt timeline grouped by year">
-  {%- for year in years -%}
-    {%- assign year_str = year | to_s -%}
+  {%- for year_str in years -%}
     <div class="timeline__year-group reveal" data-year="{{ year_str }}">
       <div class="timeline__year-marker" aria-hidden="true">
         <span class="timeline__year-label">{{ year_str }}</span>
@@ -32,8 +42,7 @@ layout: default
 
       <div class="timeline__entries">
         {%- for prompt in sorted_prompts -%}
-          {%- assign prompt_year = prompt.date | date: "%Y" -%}
-          {%- if prompt_year == year_str -%}
+          {%- if prompt.date | date: "%Y" == year_str -%}
             {%- include prompt-card.html prompt=prompt -%}
           {%- endif -%}
         {%- endfor -%}
