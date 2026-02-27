@@ -6,7 +6,9 @@
       &amp; hosted on <a href="https://pages.github.com" rel="noopener noreferrer" target="_blank">GitHub Pages</a>.
     </p>
     <p class="site-footer__count">
-      {{ site.prompts.size }} prompt{{ site.prompts.size | minus: 1 | divided_by: 1 | floor | at_least: 1 | times: 0 | plus: site.prompts.size | minus: 1 | times: 0 | floor }}s catalogued
+      {{ site.prompts.size }}
+      {%- if site.prompts.size == 1 %} prompt{%- else %} prompts{%- endif %}
+      catalogued
     </p>
   </div>
 </footer>

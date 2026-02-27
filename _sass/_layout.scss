@@ -22,19 +22,16 @@
   top: 0;
   z-index: $z-header;
   height: 64px;
-  background: var(--bg-base);
   border-bottom: 1px solid var(--border-subtle);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  // backdrop-filter removed (P3-3): two simultaneous blurred layers (header +
+  // switcher) trigger Lighthouse GPU memory warnings on mobile emulation.
+  // Replaced with a CSS custom-property-aware semi-opaque background that
+  // correctly repaints on theme change without a compositor layer.
+  background: color-mix(in srgb, var(--bg-base) 92%, transparent);
 
-  // Subtle frosted glass effect without touching bg-color alpha
-  &::before {
-    content: "";
-    position: absolute;
-    inset: 0;
+  // Fallback for browsers without color-mix (Safari < 16.2, Firefox < 113)
+  @supports not (background: color-mix(in srgb, red 50%, blue)) {
     background: var(--bg-base);
-    opacity: 0.85;
-    z-index: -1;
   }
 }
 

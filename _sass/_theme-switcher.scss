@@ -15,10 +15,11 @@ html::before {
   background: var(--bg-base);
   clip-path: circle(0% at var(--ripple-x, 50%) var(--ripple-y, 50%));
   transition: clip-path 0ms;
-  will-change: clip-path;
+  will-change: auto; // no compositor layer at rest — promoted only during transition
 }
 
 html.theme-transitioning::before {
+  will-change: clip-path; // promote layer for the 550ms window only
   clip-path: circle(150% at var(--ripple-x, 50%) var(--ripple-y, 50%));
   transition: clip-path 550ms cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -37,8 +38,9 @@ html.theme-transitioning::before {
   border: 1px solid var(--border-strong);
   border-radius: $radius-xl;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  // backdrop-filter removed: creates a second compositor layer alongside the
+  // header blur, raising GPU memory usage and triggering Lighthouse compositing
+  // warnings. The bg-raised + border already provides sufficient visual separation.
 
   @media (max-width: #{$bp-sm - 1px}) {
     right: $space-3;

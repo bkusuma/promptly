@@ -8,7 +8,8 @@ title: "Promptly"
 description: "A curated portfolio of AI-generated outputs — prompts, results, and the creative process behind them."
 author:
   name: "Your Name"
-  email: "you@example.com"
+  # email omitted — jekyll-seo-tag emits it into page metadata making it
+  # trivially harvestable by spam crawlers. Use a contact form instead.
   twitter: "yourhandle"
 url: "https://yourusername.github.io"
 baseurl: "/promptly"
@@ -37,7 +38,8 @@ collections:
   prompts:
     output: true
     permalink: /prompts/:year/:slug/
-    sort_by: date
+    # sort_by: date  # Jekyll 4.x only — silently ignored on GitHub Pages 3.9.x.
+    # Ordering is handled via | sort: "date" | reverse in Liquid.
 
 # --- Defaults ----------------------------------------------------------------
 defaults:

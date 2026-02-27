@@ -24,7 +24,8 @@ body {
   background-color: var(--bg-base);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-rendering: optimizeLegibility;
+  // text-rendering: optimizeLegibility removed — causes extra glyph-shape layout
+  // passes on Chrome (Lighthouse lab runner) without visible benefit on system fonts.
   overflow-x: hidden;
 }
 

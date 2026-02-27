@@ -53,10 +53,18 @@
   border-radius: $radius-sm;
 }
 
-// --- Glow pulse on timeline dot (subtle, attention to year markers) ----------
+// --- Glow pulse on timeline dot -----------------------------------------------
+// Uses transform: scale() + opacity — both are GPU-composited on the main thread.
+// box-shadow (previous impl) is paint-only and causes continuous repaints,
+// which fails Lighthouse "Avoid non-composited animations" and raises TBT.
 @keyframes dot-pulse {
-  0%, 100% { box-shadow: 0 0 0 0 var(--accent-glow); }
-  50%       { box-shadow: 0 0 0 8px transparent; }
+  0%, 100% { transform: scale(1);    opacity: 1; }
+  50%       { transform: scale(2.4); opacity: 0; }
+}
+
+// ::after pseudo-element needs its own stacking context for transform to work
+.timeline__entries .prompt-card::after {
+  will-change: transform, opacity; // promote layer upfront; removed by JS after first cycle (optional)
 }
 
 .timeline__year-group.is-visible .timeline__entries .prompt-card::after {

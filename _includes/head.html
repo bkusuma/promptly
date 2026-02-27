@@ -14,7 +14,12 @@
 <!-- Theme init: prevent FOUC by reading stored preference before paint -->
 <script>
   (function () {
-    var t = localStorage.getItem('promptly-theme') || 'cosmic';
+    // Validate against explicit allowlist before writing to data-theme.
+    // Prevents a compromised localStorage value from injecting arbitrary
+    // attribute content (defence-in-depth against extension-based attacks).
+    var allowed = ['cosmic', 'parchment', 'terminal'];
+    var t = localStorage.getItem('promptly-theme');
+    t = allowed.indexOf(t) !== -1 ? t : 'cosmic';
     document.documentElement.setAttribute('data-theme', t);
   }());
 </script>
