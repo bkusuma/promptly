@@ -8,6 +8,7 @@
 [data-theme="cosmic"] {
   // Backgrounds
   --bg-base:        #030305;
+  --header-bg:      rgba(3, 3, 5, 0.92);   // --bg-base at 92% opacity
   --bg-surface:     #0d0d14;
   --bg-raised:      #14141f;
   --bg-overlay:     rgba(255, 255, 255, 0.04);
@@ -54,6 +55,7 @@
 // --- Parchment Light --------------------------------------------------------
 [data-theme="parchment"] {
   --bg-base:        #faf6f0;
+  --header-bg:      rgba(250, 246, 240, 0.92);   // --bg-base at 92% opacity
   --bg-surface:     #f2ece2;
   --bg-raised:      #ede5d8;
   --bg-overlay:     rgba(0, 0, 0, 0.04);
@@ -92,6 +94,7 @@
 // --- Terminal Green ---------------------------------------------------------
 [data-theme="terminal"] {
   --bg-base:        #010c02;
+  --header-bg:      rgba(1, 12, 2, 0.92);   // --bg-base at 92% opacity
   --bg-surface:     #021204;
   --bg-raised:      #031806;
   --bg-overlay:     rgba(0, 255, 65, 0.04);

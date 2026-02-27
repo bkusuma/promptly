@@ -25,14 +25,10 @@
   border-bottom: 1px solid var(--border-subtle);
   // backdrop-filter removed (P3-3): two simultaneous blurred layers (header +
   // switcher) trigger Lighthouse GPU memory warnings on mobile emulation.
-  // Replaced with a CSS custom-property-aware semi-opaque background that
-  // correctly repaints on theme change without a compositor layer.
-  background: color-mix(in srgb, var(--bg-base) 92%, transparent);
-
-  // Fallback for browsers without color-mix (Safari < 16.2, Firefox < 113)
-  @supports not (background: color-mix(in srgb, red 50%, blue)) {
-    background: var(--bg-base);
-  }
+  // --header-bg is defined per theme as rgba(--bg-base, 0.92) so LibSass
+  // (GitHub Pages) can compile it — color-mix(in srgb, ...) is CSS Level 4
+  // and its `in` keyword breaks LibSass's argument parser.
+  background: var(--header-bg);
 }
 
 .site-header__inner {
