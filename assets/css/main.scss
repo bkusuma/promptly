@@ -1,0 +1,19 @@
+---
+# Front matter required for Jekyll Sass processing
+---
+
+// =============================================================================
+// main.scss — Promptly entry point
+// Import order matters: variables → reset → tokens → components
+// =============================================================================
+
+@import "variables";
+@import "reset";
+@import "typography";
+@import "layout";
+@import "timeline";
+@import "cards";
+@import "theme-switcher";
+@import "search";
+@import "animations";
+@import "utilities";

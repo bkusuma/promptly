@@ -1,0 +1,110 @@
+---
+layout: default
+---
+
+{%- include schema-prompt.html prompt=page -%}
+
+<article class="prompt-detail" itemscope itemtype="https://schema.org/CreativeWork">
+  <header class="prompt-detail__header">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="{{ '/' | relative_url }}">Home</a>
+      <span aria-hidden="true">/</span>
+      <span aria-current="page">{{ page.title | escape }}</span>
+    </nav>
+
+    <div class="prompt-detail__meta reveal">
+      {%- if page.tags.size > 0 -%}
+        <ul class="tag-list" aria-label="Tags">
+          {%- for tag in page.tags -%}
+            <li class="tag">{{ tag | escape }}</li>
+          {%- endfor -%}
+        </ul>
+      {%- endif -%}
+      <time class="prompt-detail__date" datetime="{{ page.date | date_to_xmlschema }}">
+        {{ page.date | date: "%B %-d, %Y" }}
+      </time>
+      {%- if page.model -%}
+        <span class="prompt-detail__model">{{ page.model | escape }}</span>
+      {%- endif -%}
+    </div>
+
+    <h1 class="prompt-detail__title reveal reveal--delay-1" itemprop="name">
+      {{ page.title | escape }}
+    </h1>
+  </header>
+
+  {%- if page.prompt_text -%}
+    <section class="prompt-detail__prompt-block reveal reveal--delay-2" aria-label="Original prompt">
+      <h2 class="section-label">The Prompt</h2>
+      <blockquote class="prompt-quote" itemprop="description">
+        {{ page.prompt_text | escape | newline_to_br }}
+      </blockquote>
+    </section>
+  {%- endif -%}
+
+  {%- if page.image -%}
+    <figure class="prompt-detail__media reveal reveal--delay-3">
+      <img
+        src="{{ page.image | relative_url }}"
+        alt="{{ page.image_alt | default: page.title | escape }}"
+        loading="lazy"
+        decoding="async"
+        width="1200"
+        height="675"
+        itemprop="image"
+      >
+      {%- if page.image_caption -%}
+        <figcaption>{{ page.image_caption | escape }}</figcaption>
+      {%- endif -%}
+    </figure>
+  {%- endif -%}
+
+  {%- if page.video -%}
+    <figure class="prompt-detail__media prompt-detail__media--video reveal reveal--delay-3">
+      <video
+        src="{{ page.video | relative_url }}"
+        controls
+        muted
+        playsinline
+        preload="metadata"
+        aria-label="Result video for: {{ page.title | escape }}"
+      >
+        <p>Your browser does not support video. <a href="{{ page.video | relative_url }}">Download the video.</a></p>
+      </video>
+    </figure>
+  {%- endif -%}
+
+  <div class="prompt-detail__body reveal reveal--delay-4" itemprop="text">
+    {{ content }}
+  </div>
+
+  <footer class="prompt-detail__footer">
+    {%- assign all_prompts = site.prompts | sort: "date" | reverse -%}
+    {%- assign prompt_count = all_prompts | size -%}
+    {%- for p in all_prompts -%}
+      {%- if p.url == page.url -%}
+        {%- assign current_index = forloop.index0 -%}
+      {%- endif -%}
+    {%- endfor -%}
+
+    <nav class="prompt-nav" aria-label="Adjacent prompts">
+      {%- if current_index > 0 -%}
+        {%- assign prev = all_prompts[current_index | minus: 1] -%}
+        <a class="prompt-nav__link prompt-nav__link--prev" href="{{ prev.url | relative_url }}">
+          <span class="prompt-nav__dir" aria-hidden="true">←</span>
+          <span class="prompt-nav__label">Newer</span>
+          <span class="prompt-nav__title">{{ prev.title | escape }}</span>
+        </a>
+      {%- endif -%}
+      {%- assign next_index = current_index | plus: 1 -%}
+      {%- if next_index < prompt_count -%}
+        {%- assign nxt = all_prompts[next_index] -%}
+        <a class="prompt-nav__link prompt-nav__link--next" href="{{ nxt.url | relative_url }}">
+          <span class="prompt-nav__dir" aria-hidden="true">→</span>
+          <span class="prompt-nav__label">Older</span>
+          <span class="prompt-nav__title">{{ nxt.title | escape }}</span>
+        </a>
+      {%- endif -%}
+    </nav>
+  </footer>
+</article>

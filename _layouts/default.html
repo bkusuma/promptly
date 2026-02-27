@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="{{ page.lang | default: site.lang | default: 'en' }}" data-theme="cosmic">
+<head>
+  {%- include head.html -%}
+</head>
+<body>
+  {%- include theme-switcher.html -%}
+  {%- include header.html -%}
+
+  <main id="main-content" class="site-main">
+    {{ content }}
+  </main>
+
+  {%- include footer.html -%}
+
+  <script src="{{ '/assets/js/theme.js' | relative_url }}" defer></script>
+  <script src="{{ '/assets/js/observer.js' | relative_url }}" defer></script>
+  {%- if page.layout == 'home' or page.url == '/search/' -%}
+  <script src="{{ '/assets/js/search.js' | relative_url }}" defer></script>
+  {%- endif -%}
+</body>
+</html>

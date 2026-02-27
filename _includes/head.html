@@ -1,0 +1,56 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+{%- seo -%}
+
+<!-- Preload critical assets -->
+<link rel="preload" href="{{ '/assets/css/main.css' | relative_url }}" as="style">
+<link rel="preload" href="{{ '/assets/js/theme.js' | relative_url }}" as="script">
+
+<!-- Stylesheet -->
+<link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}">
+
+<!-- Theme init: prevent FOUC by reading stored preference before paint -->
+<script>
+  (function () {
+    var t = localStorage.getItem('promptly-theme') || 'cosmic';
+    document.documentElement.setAttribute('data-theme', t);
+  }());
+</script>
+
+<!-- Canonical & alternate -->
+<link rel="canonical" href="{{ page.url | absolute_url }}">
+
+<!-- Sitemap reference -->
+<link rel="sitemap" type="application/xml" href="{{ '/sitemap.xml' | relative_url }}">
+
+<!-- Favicons (place actual files in /assets/img/) -->
+<link rel="icon" type="image/svg+xml" href="{{ '/assets/img/favicon.svg' | relative_url }}">
+<link rel="icon" type="image/png" sizes="32x32" href="{{ '/assets/img/favicon-32.png' | relative_url }}">
+<link rel="apple-touch-icon" href="{{ '/assets/img/apple-touch-icon.png' | relative_url }}">
+
+<!-- Page-level JSON-LD (site-wide WebSite schema) -->
+{%- if page.url == '/' or page.url == '' -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": {{ site.title | jsonify }},
+  "url": {{ site.url | append: site.baseurl | jsonify }},
+  "description": {{ site.description | jsonify }},
+  "author": {
+    "@type": "Person",
+    "name": {{ site.author.name | jsonify }}
+  },
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": {
+      "@type": "EntryPoint",
+      "urlTemplate": {{ site.url | append: site.baseurl | append: '/search/?q={search_term_string}' | jsonify }}
+    },
+    "query-input": "required name=search_term_string"
+  }
+}
+</script>
+{%- endif -%}

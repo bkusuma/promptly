@@ -1,0 +1,220 @@
+// =============================================================================
+// _layout.scss — Site structure, container, header, footer
+// =============================================================================
+
+// --- Container ---------------------------------------------------------------
+.container {
+  width: 100%;
+  max-width: $container-max;
+  margin-inline: auto;
+  padding-inline: $container-pad;
+}
+
+// --- Site wrapper ------------------------------------------------------------
+.site-main {
+  min-height: calc(100dvh - 64px - 80px); // viewport minus header + footer
+  padding-block: $space-8 $space-16;
+}
+
+// --- Header ------------------------------------------------------------------
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: $z-header;
+  height: 64px;
+  background: var(--bg-base);
+  border-bottom: 1px solid var(--border-subtle);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+
+  // Subtle frosted glass effect without touching bg-color alpha
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: var(--bg-base);
+    opacity: 0.85;
+    z-index: -1;
+  }
+}
+
+.site-header__inner {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: $space-4;
+}
+
+// Logo
+.site-header__logo {
+  display: flex;
+  align-items: center;
+  gap: $space-2;
+  text-decoration: none;
+  color: var(--fg-primary);
+  font-weight: 700;
+  font-size: $text-lg;
+  letter-spacing: -0.02em;
+
+  &:hover { opacity: 1; color: var(--accent-1); }
+}
+
+.logo-mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  background: var(--accent-1);
+  color: var(--fg-inverse);
+  border-radius: $radius-sm;
+  font-size: 10px;
+  flex-shrink: 0;
+  transition: background $t-base;
+
+  [data-theme="parchment"] & { color: var(--bg-base); }
+}
+
+// Primary nav
+.primary-nav__list {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: $space-5;
+  padding: 0;
+  margin: 0;
+
+  a {
+    font-size: $text-sm;
+    font-weight: 500;
+    color: var(--fg-secondary);
+    text-decoration: none;
+    transition: color $t-fast;
+    padding-block: $space-1;
+
+    &:hover,
+    &[aria-current="page"] {
+      color: var(--fg-primary);
+    }
+
+    &[aria-current="page"] {
+      border-bottom: 2px solid var(--accent-1);
+    }
+  }
+}
+
+// Mobile nav toggle (hamburger)
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 36px;
+  height: 36px;
+  padding: $space-2;
+  background: transparent;
+  border: 1px solid var(--border-strong);
+  border-radius: $radius-sm;
+  cursor: pointer;
+  transition: border-color $t-fast;
+
+  &:hover { border-color: var(--accent-1); }
+
+  @media (max-width: #{$bp-md - 1px}) {
+    display: flex;
+  }
+}
+
+.nav-toggle__bar {
+  display: block;
+  width: 100%;
+  height: 2px;
+  background: var(--fg-primary);
+  border-radius: $radius-full;
+  transform-origin: center;
+  transition: transform $t-base, opacity $t-base;
+}
+
+.nav-toggle[aria-expanded="true"] {
+  .nav-toggle__bar:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .nav-toggle__bar:nth-child(2) { opacity: 0; }
+  .nav-toggle__bar:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+}
+
+// Mobile nav panel
+@media (max-width: #{$bp-md - 1px}) {
+  .primary-nav {
+    position: fixed;
+    top: 64px;
+    left: 0;
+    right: 0;
+    background: var(--bg-surface);
+    border-bottom: 1px solid var(--border-subtle);
+    padding: $space-4;
+    transform: translateY(-110%);
+    opacity: 0;
+    transition: transform $t-slow, opacity $t-slow;
+    z-index: $z-header - 1;
+  }
+
+  .primary-nav[data-open="true"] {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  .primary-nav__list {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: $space-2;
+
+    a { font-size: $text-base; }
+  }
+}
+
+// --- Footer ------------------------------------------------------------------
+.site-footer {
+  border-top: 1px solid var(--border-subtle);
+  padding-block: $space-6;
+  color: var(--fg-muted);
+  font-size: $text-sm;
+}
+
+.site-footer__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: $space-3;
+}
+
+.site-footer__copy a {
+  color: var(--fg-secondary);
+  &:hover { color: var(--accent-1); }
+}
+
+// --- Page content layout ----------------------------------------------------
+.page-content {
+  max-width: $content-max;
+  margin-inline: auto;
+}
+
+.page-content__header {
+  margin-bottom: $space-8;
+}
+
+.page-content__title {
+  font-size: $text-3xl;
+  letter-spacing: -0.02em;
+  color: var(--fg-primary);
+}
+
+.page-content__subtitle {
+  margin-top: $space-3;
+  font-size: $text-lg;
+  color: var(--fg-secondary);
+}
+
+.page-content__body {
+  @extend .prose;
+}

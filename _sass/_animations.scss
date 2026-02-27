@@ -1,0 +1,67 @@
+// =============================================================================
+// _animations.scss — IntersectionObserver-driven reveal animations
+// All transitions respect prefers-reduced-motion via the reset
+// =============================================================================
+
+// --- Base reveal state (pre-animation) ----------------------------------------
+// JS adds .is-visible when element enters viewport
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity  600ms cubic-bezier(0.4, 0, 0.2, 1),
+    transform 600ms cubic-bezier(0.4, 0, 0.2, 1);
+
+  &.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// --- Stagger delays (applied via modifier classes) ----------------------------
+.reveal--delay-1 { transition-delay: 80ms; }
+.reveal--delay-2 { transition-delay: 160ms; }
+.reveal--delay-3 { transition-delay: 240ms; }
+.reveal--delay-4 { transition-delay: 320ms; }
+.reveal--delay-5 { transition-delay: 400ms; }
+
+// --- Timeline cards stagger (auto-computed via nth-child) --------------------
+.timeline__entries .prompt-card {
+  // Stagger first 6 cards in each group, then stabilise
+  @for $i from 1 through 6 {
+    &:nth-child(#{$i}) {
+      transition-delay: #{($i - 1) * 80}ms;
+    }
+  }
+}
+
+// --- Shimmer loading placeholder (used while search index loads) -------------
+@keyframes shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position:  200% 0; }
+}
+
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--bg-surface) 25%,
+    var(--bg-raised)  50%,
+    var(--bg-surface) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.4s ease-in-out infinite;
+  border-radius: $radius-sm;
+}
+
+// --- Glow pulse on timeline dot (subtle, attention to year markers) ----------
+@keyframes dot-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 var(--accent-glow); }
+  50%       { box-shadow: 0 0 0 8px transparent; }
+}
+
+.timeline__year-group.is-visible .timeline__entries .prompt-card::after {
+  animation: dot-pulse 2.5s ease infinite;
+  animation-delay: 0.8s;
+}
+
+// --- Theme transition fade overlay is handled in _theme-switcher.scss --------

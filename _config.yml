@@ -1,0 +1,97 @@
+# =============================================================================
+# Promptly — Jekyll Configuration
+# GitHub Pages native build (Jekyll 3.9.x)
+# =============================================================================
+
+# --- Site Identity -----------------------------------------------------------
+title: "Promptly"
+description: "A curated portfolio of AI-generated outputs — prompts, results, and the creative process behind them."
+author:
+  name: "Your Name"
+  email: "you@example.com"
+  twitter: "yourhandle"
+url: "https://yourusername.github.io"
+baseurl: "/promptly"
+lang: "en"
+
+# --- Build & Serving ---------------------------------------------------------
+timezone: "UTC"
+encoding: "utf-8"
+markdown: kramdown
+highlighter: rouge
+
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
+  syntax_highlighter_opts:
+    block:
+      line_numbers: true
+
+# --- Sass --------------------------------------------------------------------
+sass:
+  sass_dir: _sass
+  style: compressed   # minified output for Lighthouse perf score
+
+# --- Collections -------------------------------------------------------------
+collections:
+  prompts:
+    output: true
+    permalink: /prompts/:year/:slug/
+    sort_by: date
+
+# --- Defaults ----------------------------------------------------------------
+defaults:
+  - scope:
+      path: ""
+      type: "prompts"
+    values:
+      layout: "prompt"
+      image: ""
+      video: ""
+      model: "Unknown"
+      tags: []
+  - scope:
+      path: ""
+      type: "pages"
+    values:
+      layout: "page"
+  - scope:
+      path: "index.html"
+    values:
+      layout: "home"
+
+# --- Plugins (GitHub Pages whitelist only) -----------------------------------
+plugins:
+  - jekyll-seo-tag
+  - jekyll-sitemap
+
+# --- Exclude from build ------------------------------------------------------
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - "*.gem"
+  - node_modules
+  - vendor
+  - README.md
+  - CHANGELOG.md
+  - .sass-cache
+  - .jekyll-cache
+
+# --- Pagination (jekyll-paginate is whitelisted) ----------------------------
+# paginate: 12
+# paginate_path: "/page/:num/"
+
+# --- SEO / Feed --------------------------------------------------------------
+twitter:
+  username: "yourhandle"
+  card: "summary_large_image"
+
+social:
+  name: "Your Name"
+  links:
+    - "https://twitter.com/yourhandle"
+    - "https://github.com/yourusername"
+
+# --- Feed / Sitemap ----------------------------------------------------------
+feed:
+  path: atom.xml

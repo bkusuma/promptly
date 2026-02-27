@@ -1,0 +1,39 @@
+{%- assign p = include.prompt -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CreativeWork",
+  "@id": {{ p.url | absolute_url | jsonify }},
+  "name": {{ p.title | jsonify }},
+  "description": {{ p.prompt_text | default: p.excerpt | strip_html | jsonify }},
+  "dateCreated": {{ p.date | date_to_xmlschema | jsonify }},
+  "datePublished": {{ p.date | date_to_xmlschema | jsonify }},
+  "author": {
+    "@type": "Person",
+    "name": {{ site.author.name | jsonify }}
+  },
+  "creator": {
+    "@type": "SoftwareApplication",
+    "name": {{ p.model | default: "AI Model" | jsonify }},
+    "applicationCategory": "ArtificialIntelligenceApplication"
+  },
+  "url": {{ p.url | absolute_url | jsonify }},
+  "isPartOf": {
+    "@type": "WebSite",
+    "name": {{ site.title | jsonify }},
+    "url": {{ site.url | append: site.baseurl | jsonify }}
+  }
+  {%- if p.image -%}
+  ,
+  "image": {
+    "@type": "ImageObject",
+    "url": {{ p.image | absolute_url | jsonify }},
+    "description": {{ p.image_alt | default: p.title | jsonify }}
+  }
+  {%- endif -%}
+  {%- if p.tags.size > 0 -%}
+  ,
+  "keywords": {{ p.tags | join: ", " | jsonify }}
+  {%- endif -%}
+}
+</script>
