@@ -52,7 +52,8 @@
     "@type": "SearchAction",
     "target": {
       "@type": "EntryPoint",
-      "urlTemplate": {{ site.url | append: site.baseurl | append: '/search/?q={search_term_string}' | jsonify }}
+      {%- capture _search_tpl %}{{ site.url | append: site.baseurl }}/search/?q={search_term_string}{% endcapture %}
+      "urlTemplate": {{ _search_tpl | jsonify }}
     },
     "query-input": "required name=search_term_string"
   }
