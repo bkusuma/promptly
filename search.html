@@ -1,0 +1,28 @@
+---
+layout: default
+title: "Search"
+permalink: /search/
+---
+<meta name="search-index" content="{{ '/search.json' | relative_url }}">
+
+<div class="page-content">
+  <header class="page-content__header reveal">
+    <h1 class="page-content__title">Search</h1>
+    <p class="page-content__subtitle" style="color:var(--fg-secondary);margin-top:.5rem">
+      Full-text fuzzy search across {{ site.prompts.size }} prompts.
+    </p>
+  </header>
+
+  {%- include search-bar.html -%}
+</div>
+
+<script>
+  // Expose search index URL for search.js
+  document.querySelector('meta[name="search-index"]') ||
+    (() => {
+      const m = document.createElement('meta');
+      m.name = 'search-index';
+      m.content = '{{ "/search.json" | relative_url }}';
+      document.head.appendChild(m);
+    })();
+</script>

@@ -1,0 +1,101 @@
+// =============================================================================
+// _reset.scss — Modern CSS reset optimised for Promptly
+// =============================================================================
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+  tab-size: 2;
+}
+
+body {
+  min-height: 100dvh;
+  font-family: $font-sans;
+  font-size: $text-base;
+  line-height: 1.6;
+  color: var(--fg-primary);
+  background-color: var(--bg-base);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+
+// Improved media defaults
+img, video, svg, canvas, audio {
+  display: block;
+  max-width: 100%;
+}
+
+img, video { height: auto; }
+
+// Form elements inherit typography
+input, button, textarea, select {
+  font: inherit;
+  color: inherit;
+}
+
+// Remove default list styles when role=list
+ul[role="list"],
+ol[role="list"] {
+  list-style: none;
+}
+
+// Anchor defaults
+a {
+  color: var(--accent-1);
+  text-underline-offset: 0.2em;
+  transition: color $t-fast, opacity $t-fast;
+
+  &:hover { opacity: 0.8; }
+}
+
+// Headings
+h1, h2, h3, h4, h5, h6 {
+  line-height: 1.2;
+  font-weight: 700;
+  text-wrap: balance;
+}
+
+// Paragraph text wrap
+p { text-wrap: pretty; }
+
+// Focus-visible ring
+:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 3px;
+  border-radius: $radius-sm;
+}
+
+// Selection colour
+::selection {
+  background-color: var(--selection-bg);
+  color: var(--fg-primary);
+}
+
+// Reduced motion
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+// Print
+@media print {
+  .site-header,
+  .theme-switcher,
+  .search-form,
+  .prompt-nav { display: none !important; }
+
+  body { background: #fff; color: #000; }
+}

@@ -1,0 +1,16 @@
+---
+layout: default
+---
+
+<article class="page-content">
+  <header class="page-content__header reveal">
+    <h1 class="page-content__title">{{ page.title | escape }}</h1>
+    {%- if page.subtitle -%}
+      <p class="page-content__subtitle">{{ page.subtitle | escape }}</p>
+    {%- endif -%}
+  </header>
+
+  <div class="page-content__body reveal reveal--delay-1">
+    {{ content }}
+  </div>
+</article>

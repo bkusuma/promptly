@@ -1,0 +1,63 @@
+{%- assign p = include.prompt -%}
+<article
+  class="prompt-card reveal"
+  aria-label="{{ p.title | escape }}"
+  itemscope
+  itemtype="https://schema.org/CreativeWork"
+>
+  {%- if p.image -%}
+    <a class="prompt-card__media-link" href="{{ p.url | relative_url }}" tabindex="-1" aria-hidden="true">
+      <div class="prompt-card__media">
+        <img
+          src="{{ p.image | relative_url }}"
+          alt="{{ p.image_alt | default: p.title | escape }}"
+          loading="lazy"
+          decoding="async"
+          width="800"
+          height="450"
+          itemprop="image"
+        >
+      </div>
+    </a>
+  {%- elsif p.video -%}
+    <div class="prompt-card__media prompt-card__media--video" aria-hidden="true">
+      <video
+        src="{{ p.video | relative_url }}"
+        muted
+        loop
+        playsinline
+        preload="none"
+        class="prompt-card__video"
+      ></video>
+    </div>
+  {%- endif -%}
+
+  <div class="prompt-card__body">
+    {%- if p.tags.size > 0 -%}
+      <ul class="tag-list" aria-label="Tags">
+        {%- for tag in p.tags limit: 3 -%}
+          <li class="tag">{{ tag | escape }}</li>
+        {%- endfor -%}
+      </ul>
+    {%- endif -%}
+
+    <h2 class="prompt-card__title" itemprop="name">
+      <a href="{{ p.url | relative_url }}" itemprop="url">{{ p.title | escape }}</a>
+    </h2>
+
+    {%- if p.prompt_text -%}
+      <p class="prompt-card__excerpt" itemprop="description">
+        {{ p.prompt_text | truncatewords: 20 | escape }}
+      </p>
+    {%- endif -%}
+
+    <footer class="prompt-card__footer">
+      <time datetime="{{ p.date | date_to_xmlschema }}" itemprop="dateCreated">
+        {{ p.date | date: "%b %-d" }}
+      </time>
+      {%- if p.model -%}
+        <span class="prompt-card__model">{{ p.model | escape }}</span>
+      {%- endif -%}
+    </footer>
+  </div>
+</article>

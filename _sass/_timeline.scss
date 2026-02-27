@@ -1,0 +1,206 @@
+// =============================================================================
+// _timeline.scss — Alternating vertical timeline grouped by year
+// =============================================================================
+
+// --- Hero section ------------------------------------------------------------
+.timeline-hero {
+  max-width: $content-max;
+  margin-inline: auto;
+  text-align: center;
+  padding-block: $space-12 $space-8;
+}
+
+.hero-title {
+  font-size: $text-4xl;
+  letter-spacing: -0.04em;
+  color: var(--fg-primary);
+  line-height: 1.1;
+
+  em {
+    font-style: normal;
+    color: var(--accent-1);
+    position: relative;
+    display: inline-block;
+
+    // Subtle underline decoration
+    &::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -4px;
+      width: 100%;
+      height: 2px;
+      background: var(--accent-1);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform $t-slow;
+    }
+  }
+
+  &.is-visible em::after { transform: scaleX(1); }
+}
+
+.hero-sub {
+  margin-top: $space-5;
+  font-size: $text-lg;
+  color: var(--fg-secondary);
+  max-width: 50ch;
+  margin-inline: auto;
+}
+
+// --- Timeline container ------------------------------------------------------
+.timeline {
+  position: relative;
+  padding-block: $space-8;
+
+  // Central spine
+  &::before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: $timeline-width;
+    background: linear-gradient(
+      to bottom,
+      transparent,
+      var(--timeline-spine) 5%,
+      var(--timeline-spine) 95%,
+      transparent
+    );
+    transform: translateX(-50%);
+
+    @media (max-width: #{$bp-md - 1px}) {
+      left: 28px;
+      transform: none;
+    }
+  }
+}
+
+// --- Year group --------------------------------------------------------------
+.timeline__year-group {
+  position: relative;
+  margin-bottom: $space-12;
+}
+
+// Year marker (centred on spine)
+.timeline__year-marker {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  margin-bottom: $space-8;
+  z-index: 1;
+
+  @media (max-width: #{$bp-md - 1px}) {
+    justify-content: flex-start;
+    padding-left: calc(28px + $space-5);
+  }
+}
+
+.timeline__year-label {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: $text-lg;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--bg-base);
+  background: var(--accent-1);
+  padding: $space-2 $space-5;
+  border-radius: $radius-full;
+  line-height: 1;
+  box-shadow: 0 0 0 4px var(--bg-base), 0 0 0 6px var(--timeline-dot);
+}
+
+// --- Entries grid (alternating left / right) --------------------------------
+.timeline__entries {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: $space-6 $space-12;
+  position: relative;
+
+  @media (max-width: #{$bp-md - 1px}) {
+    grid-template-columns: 1fr;
+    padding-left: calc(28px + $space-6);
+  }
+
+  // Alternating layout: even cards go right, odd go left
+  .prompt-card {
+    position: relative;
+
+    // Connector line to spine
+    &::before {
+      content: "";
+      position: absolute;
+      top: 28px;
+      width: $timeline-gutter;
+      height: 1px;
+      background: var(--timeline-spine);
+      z-index: 0;
+    }
+
+    // Timeline dot on spine
+    &::after {
+      content: "";
+      position: absolute;
+      top: calc(28px - #{$timeline-dot-size} / 2);
+      width: $timeline-dot-size;
+      height: $timeline-dot-size;
+      background: var(--timeline-dot);
+      border-radius: $radius-full;
+      border: 2px solid var(--bg-base);
+      box-shadow: 0 0 8px var(--accent-glow);
+      z-index: 1;
+    }
+
+    // Left-side cards (odd)
+    &:nth-child(odd) {
+      grid-column: 1;
+      text-align: right;
+
+      &::before {
+        right: calc(-#{$timeline-gutter});
+      }
+
+      &::after {
+        right: calc(-#{$timeline-gutter} - #{$timeline-dot-size} / 2);
+      }
+
+      .tag-list { justify-content: flex-end; }
+      .prompt-card__footer { flex-direction: row-reverse; }
+    }
+
+    // Right-side cards (even)
+    &:nth-child(even) {
+      grid-column: 2;
+
+      &::before {
+        left: calc(-#{$timeline-gutter});
+      }
+
+      &::after {
+        left: calc(-#{$timeline-gutter} - #{$timeline-dot-size} / 2);
+      }
+    }
+
+    // On mobile: all single column, lines on the left
+    @media (max-width: #{$bp-md - 1px}) {
+      grid-column: 1 !important;
+      text-align: left;
+
+      &::before {
+        left: calc(-#{$space-6}) !important;
+        right: auto !important;
+        width: $space-6;
+      }
+
+      &::after {
+        left: calc(-#{$space-6} - #{$timeline-dot-size} / 2) !important;
+        right: auto !important;
+      }
+
+      .tag-list { justify-content: flex-start; }
+      .prompt-card__footer { flex-direction: row; }
+    }
+  }
+}

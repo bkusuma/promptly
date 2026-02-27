@@ -1,0 +1,12 @@
+<footer class="site-footer" role="contentinfo">
+  <div class="site-footer__inner container">
+    <p class="site-footer__copy">
+      &copy; {{ 'now' | date: "%Y" }} {{ site.author.name | escape }}.
+      Built with <a href="https://jekyllrb.com" rel="noopener noreferrer" target="_blank">Jekyll</a>
+      &amp; hosted on <a href="https://pages.github.com" rel="noopener noreferrer" target="_blank">GitHub Pages</a>.
+    </p>
+    <p class="site-footer__count">
+      {{ site.prompts.size }} prompt{{ site.prompts.size | minus: 1 | divided_by: 1 | floor | at_least: 1 | times: 0 | plus: site.prompts.size | minus: 1 | times: 0 | floor }}s catalogued
+    </p>
+  </div>
+</footer>

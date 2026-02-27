@@ -1,0 +1,45 @@
+---
+layout: default
+---
+
+{%- include search-bar.html -%}
+
+<section class="timeline-hero">
+  <h1 class="hero-title reveal">
+    A record of <em>creative</em> AI collaboration.
+  </h1>
+  <p class="hero-sub reveal reveal--delay-1">
+    Prompts, results, and the reasoning in between — catalogued by year.
+  </p>
+</section>
+
+{%- comment -%}
+  Group prompts by year at build time using Liquid.
+  Sorting happens on the pre-sorted collection, grouped via a custom loop.
+  We avoid nested for-loops on large data by building a year-keyed array once.
+{%- endcomment -%}
+
+{%- assign sorted_prompts = site.prompts | sort: "date" | reverse -%}
+{%- assign years = sorted_prompts | map: "date" | map: "year" | uniq -%}
+
+<div class="timeline" aria-label="Prompt timeline grouped by year">
+  {%- for year in years -%}
+    {%- assign year_str = year | to_s -%}
+    <div class="timeline__year-group reveal" data-year="{{ year_str }}">
+      <div class="timeline__year-marker" aria-hidden="true">
+        <span class="timeline__year-label">{{ year_str }}</span>
+      </div>
+
+      <div class="timeline__entries">
+        {%- for prompt in sorted_prompts -%}
+          {%- assign prompt_year = prompt.date | date: "%Y" -%}
+          {%- if prompt_year == year_str -%}
+            {%- include prompt-card.html prompt=prompt -%}
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    </div>
+  {%- endfor -%}
+</div>
+
+{{ content }}

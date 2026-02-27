@@ -1,0 +1,198 @@
+// =============================================================================
+// _variables.scss — Design tokens via CSS custom properties
+// Three themes: cosmic (dark), parchment (light), terminal (green)
+// =============================================================================
+
+// --- Cosmic Dark (default) --------------------------------------------------
+:root,
+[data-theme="cosmic"] {
+  // Backgrounds
+  --bg-base:        #030305;
+  --bg-surface:     #0d0d14;
+  --bg-raised:      #14141f;
+  --bg-overlay:     rgba(255, 255, 255, 0.04);
+
+  // Foregrounds
+  --fg-primary:     #e8e6f0;
+  --fg-secondary:   #9896a8;
+  --fg-muted:       #56546a;
+  --fg-inverse:     #030305;
+
+  // Brand / accent
+  --accent-1:       #7f5af0;   // violet
+  --accent-2:       #2cb67d;   // mint
+  --accent-glow:    rgba(127, 90, 240, 0.35);
+
+  // Timeline spine
+  --timeline-spine: #2e2c3e;
+  --timeline-dot:   #7f5af0;
+
+  // Borders
+  --border-subtle:  rgba(255, 255, 255, 0.07);
+  --border-strong:  rgba(255, 255, 255, 0.15);
+
+  // Card
+  --card-bg:        #0d0d14;
+  --card-border:    rgba(127, 90, 240, 0.18);
+  --card-shadow:    0 4px 32px rgba(0, 0, 0, 0.6);
+
+  // Tags
+  --tag-bg:         rgba(127, 90, 240, 0.15);
+  --tag-fg:         #a689f5;
+  --tag-border:     rgba(127, 90, 240, 0.3);
+
+  // Code / blockquote
+  --code-bg:        #0a0a12;
+  --code-fg:        #2cb67d;
+  --code-border:    #7f5af0;
+
+  // Misc
+  --focus-ring:     #7f5af0;
+  --selection-bg:   rgba(127, 90, 240, 0.35);
+}
+
+// --- Parchment Light --------------------------------------------------------
+[data-theme="parchment"] {
+  --bg-base:        #faf6f0;
+  --bg-surface:     #f2ece2;
+  --bg-raised:      #ede5d8;
+  --bg-overlay:     rgba(0, 0, 0, 0.04);
+
+  --fg-primary:     #1a1612;
+  --fg-secondary:   #6b5e50;
+  --fg-muted:       #a89a8a;
+  --fg-inverse:     #faf6f0;
+
+  --accent-1:       #b04e2a;   // burnt sienna
+  --accent-2:       #4a7c59;   // forest green
+  --accent-glow:    rgba(176, 78, 42, 0.2);
+
+  --timeline-spine: #d4c8b8;
+  --timeline-dot:   #b04e2a;
+
+  --border-subtle:  rgba(0, 0, 0, 0.08);
+  --border-strong:  rgba(0, 0, 0, 0.18);
+
+  --card-bg:        #f7f1e8;
+  --card-border:    rgba(176, 78, 42, 0.2);
+  --card-shadow:    0 4px 20px rgba(0, 0, 0, 0.1);
+
+  --tag-bg:         rgba(176, 78, 42, 0.1);
+  --tag-fg:         #8c3a1f;
+  --tag-border:     rgba(176, 78, 42, 0.25);
+
+  --code-bg:        #f0e8d8;
+  --code-fg:        #4a7c59;
+  --code-border:    #b04e2a;
+
+  --focus-ring:     #b04e2a;
+  --selection-bg:   rgba(176, 78, 42, 0.2);
+}
+
+// --- Terminal Green ---------------------------------------------------------
+[data-theme="terminal"] {
+  --bg-base:        #010c02;
+  --bg-surface:     #021204;
+  --bg-raised:      #031806;
+  --bg-overlay:     rgba(0, 255, 65, 0.04);
+
+  --fg-primary:     #00ff41;
+  --fg-secondary:   #00b82e;
+  --fg-muted:       #006818;
+  --fg-inverse:     #010c02;
+
+  --accent-1:       #00ff41;   // phosphor green
+  --accent-2:       #39ff14;   // neon green
+  --accent-glow:    rgba(0, 255, 65, 0.3);
+
+  --timeline-spine: #013d0a;
+  --timeline-dot:   #00ff41;
+
+  --border-subtle:  rgba(0, 255, 65, 0.1);
+  --border-strong:  rgba(0, 255, 65, 0.25);
+
+  --card-bg:        #020f03;
+  --card-border:    rgba(0, 255, 65, 0.2);
+  --card-shadow:    0 4px 32px rgba(0, 255, 65, 0.08);
+
+  --tag-bg:         rgba(0, 255, 65, 0.08);
+  --tag-fg:         #00ff41;
+  --tag-border:     rgba(0, 255, 65, 0.2);
+
+  --code-bg:        #010c02;
+  --code-fg:        #39ff14;
+  --code-border:    #00ff41;
+
+  --focus-ring:     #00ff41;
+  --selection-bg:   rgba(0, 255, 65, 0.25);
+}
+
+// =============================================================================
+// Sass variables (not theme-dependent — layout / type scale)
+// =============================================================================
+
+// Spacing scale (multiples of 4px)
+$space-1:  0.25rem;   //  4px
+$space-2:  0.5rem;    //  8px
+$space-3:  0.75rem;   // 12px
+$space-4:  1rem;      // 16px
+$space-5:  1.5rem;    // 24px
+$space-6:  2rem;      // 32px
+$space-8:  3rem;      // 48px
+$space-12: 4.5rem;    // 72px
+$space-16: 6rem;      // 96px
+
+// Fluid type scale using clamp()
+$text-xs:   clamp(0.7rem,  0.65rem + 0.25vw, 0.75rem);
+$text-sm:   clamp(0.8rem,  0.75rem + 0.25vw, 0.875rem);
+$text-base: clamp(0.95rem, 0.9rem  + 0.25vw, 1rem);
+$text-lg:   clamp(1.1rem,  1rem    + 0.5vw,  1.25rem);
+$text-xl:   clamp(1.25rem, 1.1rem  + 0.75vw, 1.5rem);
+$text-2xl:  clamp(1.5rem,  1.2rem  + 1.5vw,  2rem);
+$text-3xl:  clamp(2rem,    1.5rem  + 2.5vw,  3rem);
+$text-4xl:  clamp(2.5rem,  1.8rem  + 3.5vw,  4rem);
+
+// Typefaces
+$font-sans: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+$font-mono: "Fira Code", "Cascadia Code", "JetBrains Mono", ui-monospace, monospace;
+
+// Layout
+$container-max:  1200px;
+$container-pad:  clamp(1rem, 5vw, 3rem);
+$content-max:    680px;
+$timeline-width: 3px;
+$timeline-dot-size: 14px;
+$timeline-gutter: clamp(1.5rem, 5vw, 3rem);
+
+// Radii
+$radius-sm:   4px;
+$radius-base: 8px;
+$radius-lg:   16px;
+$radius-xl:   24px;
+$radius-full: 9999px;
+
+// Transitions
+$t-fast:    150ms ease;
+$t-base:    250ms ease;
+$t-slow:    400ms cubic-bezier(0.4, 0, 0.2, 1);
+$t-spring:  500ms cubic-bezier(0.34, 1.56, 0.64, 1);
+
+// Z-index stack
+$z-base:    0;
+$z-card:    10;
+$z-header:  100;
+$z-switcher: 150;
+$z-overlay: 200;
+
+// Breakpoints
+$bp-sm:  480px;
+$bp-md:  768px;
+$bp-lg:  1024px;
+$bp-xl:  1280px;
+
+@mixin mq($bp) {
+  @if $bp == sm  { @media (min-width: $bp-sm)  { @content; } }
+  @if $bp == md  { @media (min-width: $bp-md)  { @content; } }
+  @if $bp == lg  { @media (min-width: $bp-lg)  { @content; } }
+  @if $bp == xl  { @media (min-width: $bp-xl)  { @content; } }
+}

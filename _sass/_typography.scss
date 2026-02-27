@@ -1,0 +1,154 @@
+// =============================================================================
+// _typography.scss — Fluid type system
+// Uses system fonts — zero external font requests (Lighthouse 100 perf)
+// =============================================================================
+
+// --- Headings ----------------------------------------------------------------
+.h1, h1 { font-size: $text-4xl; letter-spacing: -0.03em; }
+.h2, h2 { font-size: $text-3xl; letter-spacing: -0.02em; }
+.h3, h3 { font-size: $text-2xl; letter-spacing: -0.015em; }
+.h4, h4 { font-size: $text-xl; }
+.h5, h5 { font-size: $text-lg; }
+.h6, h6 { font-size: $text-base; text-transform: uppercase; letter-spacing: 0.08em; }
+
+// --- Prose body copy --------------------------------------------------------
+.prose {
+  max-width: $content-max;
+  color: var(--fg-primary);
+  line-height: 1.75;
+
+  > * + * { margin-top: 1em; }
+
+  h2, h3, h4 { margin-top: 1.75em; margin-bottom: 0.5em; }
+
+  a {
+    color: var(--accent-1);
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.25em;
+  }
+
+  strong { font-weight: 700; }
+  em     { font-style: italic; }
+
+  ul, ol {
+    padding-left: $space-5;
+    li + li { margin-top: $space-2; }
+  }
+
+  ul  { list-style: disc; }
+  ol  { list-style: decimal; }
+
+  blockquote {
+    border-left: 3px solid var(--accent-1);
+    padding: $space-3 $space-5;
+    background-color: var(--bg-surface);
+    border-radius: 0 $radius-base $radius-base 0;
+    font-style: italic;
+    color: var(--fg-secondary);
+  }
+
+  code {
+    font-family: $font-mono;
+    font-size: 0.875em;
+    background: var(--code-bg);
+    color: var(--code-fg);
+    padding: 0.1em 0.4em;
+    border-radius: $radius-sm;
+    border: 1px solid var(--border-subtle);
+  }
+
+  pre {
+    background: var(--code-bg);
+    border: 1px solid var(--code-border);
+    border-radius: $radius-base;
+    padding: $space-5;
+    overflow-x: auto;
+    tab-size: 2;
+
+    code {
+      background: transparent;
+      border: none;
+      padding: 0;
+      font-size: $text-sm;
+      color: var(--code-fg);
+    }
+  }
+
+  img {
+    border-radius: $radius-base;
+    border: 1px solid var(--border-subtle);
+  }
+
+  hr {
+    border: none;
+    border-top: 1px solid var(--border-subtle);
+    margin: $space-8 0;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: $text-sm;
+
+    th, td {
+      padding: $space-3 $space-4;
+      border: 1px solid var(--border-subtle);
+      text-align: left;
+    }
+
+    th {
+      background: var(--bg-surface);
+      font-weight: 600;
+      color: var(--fg-primary);
+    }
+
+    tr:nth-child(even) td { background: var(--bg-overlay); }
+  }
+}
+
+// --- Section label (eyebrow text) -------------------------------------------
+.section-label {
+  font-size: $text-xs;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--accent-1);
+  margin-bottom: $space-3;
+}
+
+// --- Tags -------------------------------------------------------------------
+.tag-list {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: $space-2;
+  padding: 0;
+  margin: 0;
+}
+
+.tag {
+  font-size: $text-xs;
+  font-weight: 500;
+  font-family: $font-mono;
+  letter-spacing: 0.04em;
+  padding: $space-1 $space-3;
+  background: var(--tag-bg);
+  color: var(--tag-fg);
+  border: 1px solid var(--tag-border);
+  border-radius: $radius-full;
+}
+
+// --- Prompt quote (detail page) ---------------------------------------------
+.prompt-quote {
+  font-family: $font-mono;
+  font-size: $text-sm;
+  line-height: 1.8;
+  color: var(--code-fg);
+  background: var(--code-bg);
+  border-left: 3px solid var(--code-border);
+  padding: $space-5 $space-6;
+  border-radius: 0 $radius-base $radius-base 0;
+  white-space: pre-wrap;
+  word-break: break-word;
+}

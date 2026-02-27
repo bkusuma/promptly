@@ -1,0 +1,22 @@
+---
+layout: none
+permalink: /search.json
+---
+{%- comment -%}
+  Build-time search index. Liquid generates this as a static JSON file.
+  Optimised: avoids strip_html inside a loop — uses jsonify for safe encoding.
+{%- endcomment -%}
+[
+  {%- for prompt in site.prompts -%}
+    {%- unless forloop.first -%},{%- endunless -%}
+    {
+      "title":  {{ prompt.title  | jsonify }},
+      "url":    {{ prompt.url    | relative_url | jsonify }},
+      "date":   {{ prompt.date   | date: "%b %-d, %Y" | jsonify }},
+      "model":  {{ prompt.model  | default: "" | jsonify }},
+      "tags":   {{ prompt.tags   | default: "" | jsonify }},
+      "prompt": {{ prompt.prompt_text | default: "" | truncatewords: 60 | jsonify }},
+      "image":  {{ prompt.image  | default: "" | jsonify }}
+    }
+  {%- endfor -%}
+]
