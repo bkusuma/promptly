@@ -146,14 +146,17 @@ $space-12: 4.5rem;    // 72px
 $space-16: 6rem;      // 96px
 
 // Fluid type scale using clamp()
-$text-xs:   clamp(0.7rem,  0.65rem + 0.25vw, 0.75rem);
-$text-sm:   clamp(0.8rem,  0.75rem + 0.25vw, 0.875rem);
-$text-base: clamp(0.95rem, 0.9rem  + 0.25vw, 1rem);
-$text-lg:   clamp(1.1rem,  1rem    + 0.5vw,  1.25rem);
-$text-xl:   clamp(1.25rem, 1.1rem  + 0.75vw, 1.5rem);
-$text-2xl:  clamp(1.5rem,  1.2rem  + 1.5vw,  2rem);
-$text-3xl:  clamp(2rem,    1.5rem  + 2.5vw,  3rem);
-$text-4xl:  clamp(2.5rem,  1.8rem  + 3.5vw,  4rem);
+// calc() wraps the mixed rem+vw sum so Ruby Sass (GitHub Pages) does not try
+// to evaluate incompatible units — Dart Sass handles this natively, Ruby Sass
+// (jekyll-sass-converter 1.x) raises "Incompatible units: 'vw' and 'rem'".
+$text-xs:   clamp(0.7rem,  calc(0.65rem + 0.25vw), 0.75rem);
+$text-sm:   clamp(0.8rem,  calc(0.75rem + 0.25vw), 0.875rem);
+$text-base: clamp(0.95rem, calc(0.9rem  + 0.25vw), 1rem);
+$text-lg:   clamp(1.1rem,  calc(1rem    + 0.5vw),  1.25rem);
+$text-xl:   clamp(1.25rem, calc(1.1rem  + 0.75vw), 1.5rem);
+$text-2xl:  clamp(1.5rem,  calc(1.2rem  + 1.5vw),  2rem);
+$text-3xl:  clamp(2rem,    calc(1.5rem  + 2.5vw),  3rem);
+$text-4xl:  clamp(2.5rem,  calc(1.8rem  + 3.5vw),  4rem);
 
 // Typefaces
 $font-sans: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
