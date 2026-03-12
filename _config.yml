@@ -4,8 +4,8 @@
 # =============================================================================
 
 # --- Site Identity -----------------------------------------------------------
-title: "Promptly"
-description: "A curated portfolio of AI-generated outputs — prompts, results, and the creative process behind them."
+title: "Promptly — Prompt Engineering Portfolio"
+description: "A curated prompt engineering portfolio of AI-generated outputs — prompts, results, and the creative process behind them. Explore prompt engineering techniques and examples."
 author:
   name: "Your Name"
   # email omitted — jekyll-seo-tag emits it into page metadata making it

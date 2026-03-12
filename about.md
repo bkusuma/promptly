@@ -1,15 +1,15 @@
 ---
 layout: page
-title: "About Promptly"
-subtitle: "A portfolio for the age of collaborative intelligence."
+title: "About this Prompt Engineering Portfolio"
+subtitle: "Mastering prompt engineering in the age of collaborative intelligence."
 permalink: /about/
 ---
 
-**Promptly** is a curated record of creative work made with AI — a place to document prompts, reflect on results, and build a public archive of the human-AI creative process.
+**Promptly** is a curated **prompt engineering portfolio** of creative work made with AI — a place to document prompts, reflect on results, and build a public archive of the human-AI creative process. Effective **prompt engineering** is essential to shaping AI outputs.
 
-## Why keep a prompt portfolio?
+## Why build a prompt engineering portfolio?
 
-The craft of prompting is real. A well-structured prompt is equal parts instruction, intuition, and creative vision. Documenting them is like keeping a sketchbook: patterns emerge, skills compound, and your best thinking is preserved.
+The craft of **prompt engineering** is real. A well-structured prompt is equal parts instruction, intuition, and creative vision. Documenting them is like keeping a sketchbook: patterns emerge, skills compound, and your best thinking is preserved.
 
 ## How entries are structured
 
