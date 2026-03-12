@@ -90,7 +90,8 @@ layout: default
 
     <nav class="prompt-nav" aria-label="Adjacent prompts">
       {%- if current_index > 0 -%}
-        {%- assign prev = all_prompts[current_index | minus: 1] -%}
+        {%- assign prev_index = current_index | minus: 1 -%}
+        {%- assign prev = all_prompts[prev_index] -%}
         <a class="prompt-nav__link prompt-nav__link--prev" href="{{ prev.url | relative_url }}">
           <span class="prompt-nav__dir" aria-hidden="true">←</span>
           <span class="prompt-nav__label">Newer</span>
