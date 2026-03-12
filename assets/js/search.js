@@ -15,7 +15,7 @@
 
   // Sanitisation: serialise any value to HTML-entity-safe text for innerHTML
   const _t = document.createElement('div');
-  const esc = str => { _t.textContent = String(str ?? ''); return _t.innerHTML; };
+  const esc = str => { _t.textContent = String(str ?? ''); return _t.innerHTML.replace(/"/g, '&quot;').replace(/'/g, '&#39;'); };
   const safeUrl = raw => { try { const u = new URL(raw, location.origin); return /^https?:$/.test(u.protocol) ? u.href : '/'; } catch { return '/'; } };
 
   async function loadIndex() {

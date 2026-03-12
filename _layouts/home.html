@@ -42,7 +42,8 @@ layout: default
 
       <div class="timeline__entries">
         {%- for prompt in sorted_prompts -%}
-          {%- if prompt.date | date: "%Y" == year_str -%}
+          {%- assign p_year = prompt.date | date: "%Y" -%}
+          {%- if p_year == year_str -%}
             {%- include prompt-card.html prompt=prompt -%}
           {%- endif -%}
         {%- endfor -%}

@@ -35,8 +35,10 @@
       root.style.setProperty('--ripple-y', `${Math.round(origin.y)}px`);
     }
 
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
     // Trigger clip-path animation
-    root.classList.add('theme-transitioning');
+    if (!reduceMotion) root.classList.add('theme-transitioning');
 
     // Switch theme immediately after first frame so the new bg is "revealed"
     requestAnimationFrame(() => {
